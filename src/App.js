@@ -1,24 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from "react";
+import Header from "./components/layout/Header";
+import Content from "./components/layout/Content";
+import Auth from "./components/Auth/Auth";
+import SignIn from "./components/Auth/SignIn";
+import { ProjectsProvider, SelectedProjectProvider } from './context';
+import { AuthProvider } from "./context/auth-context";
+import { Provider } from './components/TimeTracker/context';
+import { NotesProvider } from './components/Notepad/context';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useAuth } from "./context/auth-context";
+import './App.scss';
 
-function App() {
+const App = ({ darkModeDefault = false }) => {
+  const [darkMode, setDarkMode] = useState(darkModeDefault);
+  const { currentUser } = useAuth();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+  <AuthProvider>
+  <SelectedProjectProvider>
+    <ProjectsProvider>
+    <Provider>
+    <NotesProvider>
+    <div className="app">
+    <main
+          className={darkMode ? 'darkmode' : undefined}
         >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+          <Routes>
+            <Route path="/" element={!currentUser ? <Auth /> : <Content />} />
+            <Route path="/auth" element={<Auth /> }/>
+            <Route path="/signin" element={<SignIn />} />
+        </Routes>
+      </Router> 
+        </main>
     </div>
+    </NotesProvider>
+    </Provider>
+    </ProjectsProvider>
+  </SelectedProjectProvider>
+  </AuthProvider>
   );
 }
 

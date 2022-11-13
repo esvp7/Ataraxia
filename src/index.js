@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
+import { AuthProvider } from "./context/auth-context";
+import ContextWrapper from "../src/components/Calendar/context/ContextWrapper";
 import reportWebVitals from './reportWebVitals';
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+    <ContextWrapper>
+    <AuthProvider>
     <App />
-  </React.StrictMode>
+    </AuthProvider>
+    </ContextWrapper>
 );
 
 // If you want to start measuring performance in your app, pass a function
