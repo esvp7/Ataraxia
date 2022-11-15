@@ -12,10 +12,10 @@ import SliderBar from "./SliderBar";
 const AddTask = ({
     showAddTaskMain = true,
     shouldShowMain = false,
-    showQuickAddTask,
-    setShowQuickAddTask,
     category,
     setCategory,
+    showQuickAddTask,
+    setShowQuickAddTask,
 }) => {
     const [task, setTask] = useState('');
     const [priority, setPriority] = useState('');
@@ -23,6 +23,7 @@ const AddTask = ({
     const {progress, setProgress} = useProjectsValue();
     const [indexId, setIndexId] = useState(1)
     const [project, setProject] = useState('');
+    const [quickCategory, setQuickCategory] = useState('');
     const [showMain, setShowMain] = useState(shouldShowMain);
     const [showProjectOverlay, setShowProjectOverlay] = useState(false);
     const [showTaskDate, setShowTaskDate] = useState(false);
@@ -55,15 +56,16 @@ const AddTask = ({
             projectId,
             task,
             date: collatedDate || taskDate,
-            userId: currentUser.uid,
-            category,
+            userId: currentUser?.uid,
+            category: showQuickAddTask ? quickCategory : category,
             priority,
             indexId,
             progress
         })
         .then(() => {
             setTask('');
-            setCategory('');
+            !showQuickAddTask && setCategory('');
+            showQuickAddTask && setQuickCategory('');
             setPriority('');
             setProject('');
             setShowMain('');
@@ -132,8 +134,9 @@ const AddTask = ({
             style={{'borderRadius': '4px'}}
             placeholder='Task Category'
             type="text"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            value={!showQuickAddTask ? category : quickCategory}
+            onChange={(e) => !showQuickAddTask ? setCategory(e.target.value)
+            : setQuickCategory(e.target.value)}
           />
           <select value={priority} onChange={handleChange} className="select select2">
             <option value="">Priority</option>
