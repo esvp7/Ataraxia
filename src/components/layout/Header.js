@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { FaPizzaSlice, FaShareSquare, FaArrowAltCircleLeft } from 'react-icons/fa';
 import { useProjectsValue } from '../../context';
 import { useAuth } from "../../context/auth-context";
@@ -9,7 +9,6 @@ import TrackPlayer from './TrackPlayer';
 const Header = () => {
   const { darkMode, setDarkMode } = useProjectsValue();
   const [shouldShowMain, setShouldShowMain] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [showQuickAddTask, setShowQuickAddTask] = useState(false);
   const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
@@ -83,12 +82,11 @@ const Header = () => {
                 <FaPizzaSlice />
               </button>
             </li>
-            <li className="settings__darkmode playingIcon">
+            <li className="playingIcon">
               <button
                 type="button"
-                onClick={() => setIsPlaying(!isPlaying)}
               >
-                <TrackPlayer isPlaying={isPlaying}/>
+                <TrackPlayer />
               </button>
             </li>
           </ul>

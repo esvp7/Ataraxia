@@ -1314,6 +1314,8 @@ textarea:focus {
   }
   .input-form-cont {
     margin-bottom: -45px;
+    display: flex;
+    justify-content: center;
   }
   /*time tracker*/
   .main-section {
@@ -1410,8 +1412,8 @@ textarea:focus {
     margin-left: 10px;
     color: darkcyan;
   }
-  .input-form-cont {
-    margin-bottom: -45px;
+  .trackerBtn {
+    margin-top: 0;
   }
   .emoji-icon {
     cursor: pointer;

@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 import Paginate from "../Pagination";
 import dayjs from "dayjs";
@@ -24,10 +24,7 @@ function TimeTracker() {
     updateInput,
     setSelectedInput,
     selectedInput 
-  } = useContext(TimeTrackerContext);
-  useEffect(() => {
-    console.log(selectedInput)
-  }, [selectedInput])
+  } = useContext(TimeTrackerContext)
   const editState = {
     title: selectedInput?.title
   }  
@@ -121,10 +118,12 @@ function TimeTracker() {
                 value={savedData.title}
                 onChange={(e) => setSavedData({...savedData, title: e.target.value})}
                 className="add-project__name small-input"
+                style={{'borderRadius': '4px', 'marginTop': '-1px'}}
                 name="title"
               />
                 <button 
                 type="submit"
+                className="btn-add btn-action trackerBtn"
                 onClick={createInput}>
                   {selectedInput !== null ? 'Update Input' : 'Save Input'}
               </button>
