@@ -4,7 +4,6 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { useSelectedProjectValue} from '../../context';
 import { firebase } from '../../firebase';
 import { Slider } from '@mui/material'
-import { useProjectsValue } from '../../context';
 import { FaRegListAlt, FaRegCalendarAlt } from 'react-icons/fa';
 import moment from 'moment';
 import ProjectOverlay from '../Projects/ProjectOverlay';
@@ -12,7 +11,7 @@ import TaskDate from './TaskDate';
 
 const EditTask = ({ setIsEditing, activeTask, id }) => {
     const [taskTitle, setTaskTitle] = useState(activeTask?.task);
-    const {newProgress, setNewProgress} = useProjectsValue();
+    const [newProgress, setNewProgress] = useState(activeTask?.progress);
     const [newCat, setNewCat] = useState(activeTask?.category);
     const [newTaskDate, setNewTaskDate] = useState(activeTask?.date);
     const [newProject, setNewProject] = useState(activeTask?.projectId);
